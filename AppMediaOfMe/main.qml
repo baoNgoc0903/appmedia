@@ -6,13 +6,6 @@ ApplicationWindow{
     width: 980
     height: 611
     title: qsTr("Fresher")
-    Button{
-        text: "click"
-        z:11111
-        onClicked: {
-            m_listmodel.addSong("123", "12312")
-        }
-    }
 
     Image{
         id: background
