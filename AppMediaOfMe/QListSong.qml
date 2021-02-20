@@ -1,6 +1,15 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 Item {
+    NumberAnimation{
+        id: changeAni
+        property: "opacity"
+        from: 0
+        to:1
+        duration: 400
+        easing.type: Easing.InOutQuad
+    }
+
     ListView{
         id: listview
         anchors.fill: parent
@@ -38,7 +47,18 @@ Item {
                 anchors.leftMargin:listview.currentIndex ===index?(imgplaying.width+5):5
                 font.pixelSize: 20
                 color: "white"
-                text: nameofSong
+                text: titleofSong
+            }
+            Text{
+                id: txt1
+                width: contentWidth
+                anchors.verticalCenter: parent.bottom
+                anchors.verticalCenterOffset: -83/2
+                anchors.left:  txt.right
+                anchors.leftMargin:0
+                font.pixelSize: 20
+                color: "white"
+                text: " - "+ artistofSong
             }
             MouseArea{
                 anchors.fill: parent
@@ -72,6 +92,8 @@ Item {
         onCurrentItemChanged: {
             m_playlist.setCurrentIndex(currentIndex) // focus -for phím mũi tên
             m_player.play()
+            changeAni.targets = [listview.currentItem]
+            changeAni.restart()
         }
     }
 }

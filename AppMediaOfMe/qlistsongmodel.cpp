@@ -1,8 +1,6 @@
 #include "qlistsongmodel.h"
 
-QListSongModel::QListSongModel(QObject* parent): QAbstractListModel(parent)
-{
-}
+QListSongModel::QListSongModel(QObject* parent): QAbstractListModel(parent){}
 
 int QListSongModel::rowCount(const QModelIndex &parent) const
 {
@@ -16,9 +14,10 @@ int QListSongModel::rowCount(const QModelIndex &parent) const
 QHash<int, QByteArray> QListSongModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[NAMEROLE] = "nameofSong";
+    roles[TITLEROLE] = "titleofSong";
+    roles[ARTISTROLE] = "artistofSong";
+    roles[IMAGEROLE] = "imageofSong";
     roles[PATHROLE] = "pathofSong";
-
     return roles;
 }
 
@@ -34,8 +33,14 @@ QVariant QListSongModel::datafromIndex(const int& idx, const int& role) const
 {
     QVariant value{QVariant::fromValue<QString>("")};
     switch(role){
-    case QListSongModel::NAMEROLE:
-        value = QVariant::fromValue<QString>(m_listsong.at(idx)._name);
+    case QListSongModel::TITLEROLE:
+        value = QVariant::fromValue<QString>(m_listsong.at(idx)._title);
+        break;
+    case QListSongModel::ARTISTROLE:
+        value = QVariant::fromValue<QString>(m_listsong.at(idx)._artist);
+        break;
+    case QListSongModel::IMAGEROLE:
+        value = QVariant::fromValue<QString>(m_listsong.at(idx)._image);
         break;
     case QListSongModel::PATHROLE:
         value = QVariant::fromValue<QString>(m_listsong.at(idx)._path);
@@ -47,10 +52,10 @@ QVariant QListSongModel::datafromIndex(const int& idx, const int& role) const
     return value;
 }
 
-void QListSongModel::addSong(QString name, QString path)
+void QListSongModel::addSong(QString title, QString artist, QString image,QString path)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_listsong.append(Song(name, path));
+    m_listsong.append(Song(title,artist,image, path));
     endInsertRows();
     emit countChanged();
 }

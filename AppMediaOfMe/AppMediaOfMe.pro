@@ -34,3 +34,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     player.h \
     qlistsongmodel.h
+
+LIBS += -L/usr/local/include/taglib -ltag
+INCLUDEPATH += /usr/local/include/taglib
+DEPENDPATH += /usr/local/include/taglib

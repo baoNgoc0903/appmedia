@@ -6,7 +6,7 @@ ApplicationWindow{
     width: 980
     height: 611
     title: qsTr("Fresher")
-
+    property int idxOfListSong: m_playlist.currentIndex
     Image{
         id: background
         source: "qrc:/Image/background.png"
@@ -28,7 +28,7 @@ ApplicationWindow{
         anchors.left: listview.right
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: 150
+        height: 100
     }
     TimeAndPathView{
         id: timeandpathview

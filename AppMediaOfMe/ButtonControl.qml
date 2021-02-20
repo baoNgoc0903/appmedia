@@ -13,8 +13,8 @@ Item {
     Image{
         id: img
         source: icon_defalt
-        width: isBtnPlay ? sourceSize.width-55:sourceSize.width-20
-        height: isBtnPlay?sourceSize.height-55:sourceSize.height-20
+        width: isBtnPlay ? sourceSize.width-75:sourceSize.width-30
+        height: isBtnPlay?sourceSize.height-75:sourceSize.height-30
         fillMode: Image.PreserveAspectFit
     }
     MouseArea{

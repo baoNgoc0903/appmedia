@@ -1,6 +1,42 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 Item {
+    NumberAnimation{
+        id: textChangeAni
+        property: "opacity"
+        from:0
+        to:1
+        duration: 400
+        easing.type: Easing.InOutQuad
+    }
+
+    Text{
+        id: title
+        width: contentWidth
+        anchors.top: parent.top
+        anchors.topMargin: 13
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+        font.pixelSize: 18
+        color: "white"
+        text: m_listmodel.titleOfSong(idxOfListSong)
+        onTextChanged: {
+            textChangeAni.targets = [title, artist]
+            textChangeAni.restart()
+        }
+    }
+    Text{
+        id: artist
+        width: contentWidth
+        anchors.top: title.bottom
+        anchors.topMargin: 5
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+        font.pixelSize: 18
+        color: "white"
+        text: m_listmodel.artistOfSong(idxOfListSong)
+    }
+
     Image{
         id:imgsong
         source: "qrc:/Image/music.png"
@@ -22,6 +58,69 @@ Item {
         anchors.topMargin: 13
         color: "white"
     }
+    Component {
+        id: appDelegate
+
+        Item {
+            width: 400; height: 400
+            scale: PathView.iconScale
+            Image {
+                id: myIcon
+                width: parent.width
+                height: parent.height
+                y: 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: imageofSong
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    m_playlist.setCurrentIndex(index)
+                }
+
+            }
+        }
+    }
+    Rectangle{
+        anchors.left: parent.left
+//        anchors.leftMargin: (parent.width - 1100)/2
+        anchors.top: parent.top
+//        anchors.topMargin: 300
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        color: "green"
+        z:1111
+        opacity: 0.3
+    }
+
+    PathView {
+        id: album_art_view
+        anchors.left: parent.left
+        anchors.leftMargin: (parent.width - 1100)/2
+        anchors.top: parent.top
+        anchors.topMargin: 300
+        preferredHighlightBegin: 0.5
+        preferredHighlightEnd: 0.5
+        focus: true
+        model: m_listmodel
+        delegate: appDelegate
+        pathItemCount: 3
+        currentIndex: m_playlist.currentIndex
+        path: Path {
+            startX: 10
+            startY: 50
+            PathAttribute { name: "iconScale"; value: 0.5 }
+            PathLine { x: 550; y: 50 }
+            PathAttribute { name: "iconScale"; value: 1.0 }
+            PathLine { x: 1100; y: 50 }
+            PathAttribute { name: "iconScale"; value: 0.5 }
+        }
+        onCurrentItemChanged : {
+            m_playlist.setCurrentIndex(currentIndex)
+            m_player.play()
+        }
+    }
 
     Text{
         id: positionTime
@@ -30,6 +129,7 @@ Item {
         color: "white"
         font.pixelSize: 15
         anchors.verticalCenter: parent.bottom
+        anchors.verticalCenterOffset: 10
         anchors.left: parent.left
         anchors.leftMargin: 58
     }
@@ -40,6 +140,7 @@ Item {
         color: "white"
         font.pixelSize: 15
         anchors.verticalCenter: parent.bottom
+        anchors.verticalCenterOffset: 10
         anchors.right: parent.right
         anchors.rightMargin: 58
     }
@@ -51,6 +152,7 @@ Item {
         anchors.left: positionTime.right
         anchors.right: totaltime.left
         anchors.verticalCenter: parent.bottom
+        anchors.verticalCenterOffset: 10
         background: Rectangle{
             x: slider.leftPadding
             y: slider.topPadding + slider.availableHeight/2 - height/2
@@ -91,7 +193,7 @@ Item {
         }
         Connections{
             target: m_player
-            onPositionChanged:{
+            function onPositionChanged(){
                 sliani.targets = slider
                 sliani.restart()
             }

@@ -22,8 +22,8 @@ Item {
                 return icon_off
             }
         }
-        width: !volume?sourceSize.width-20:sourceSize.width-50
-        height: !volume?sourceSize.height-20:sourceSize.height-50
+        width: !volume?sourceSize.width-30:sourceSize.width-70
+        height: !volume?sourceSize.height-30:sourceSize.height-70
         opacity: !volume?1.0 : 0.7
         fillMode: Image.PreserveAspectFit
     }

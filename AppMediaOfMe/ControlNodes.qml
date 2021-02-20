@@ -7,7 +7,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 58
         anchors.verticalCenter: parent.top
-        anchors.verticalCenterOffset: 55
+        anchors.verticalCenterOffset: 45
         icon_on: "qrc:/Image/shuffle-1.png"
         icon_off: "qrc:/Image/shuffle.png"
         onStateChanged: {
@@ -108,7 +108,7 @@ Item {
         }
         Connections{
             target: m_player
-            onStateChanged:{
+            function onStateChanged(){
                 if(m_player.state === MediaPlayer.PlayingState){
                     console.log("play")
                     btnplay.source = "qrc:/Image/pause.png"
