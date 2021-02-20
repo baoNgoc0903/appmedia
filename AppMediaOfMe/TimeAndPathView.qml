@@ -113,7 +113,7 @@ Item {
             PathAttribute { name: "iconScale"; value: 0.5 }
             PathLine { x: 550; y: 50 }
             PathAttribute { name: "iconScale"; value: 1.0 }
-            PathLine { x: 1100; y: 50 }
+            PathLine { x: 1090; y: 50 }
             PathAttribute { name: "iconScale"; value: 0.5 }
         }
         onCurrentItemChanged : {
