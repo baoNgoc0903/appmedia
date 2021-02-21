@@ -90,6 +90,7 @@ Item {
         preferredHighlightBegin: 0.5
         preferredHighlightEnd: 0.5
         pathItemCount:3
+        clip: true
         currentIndex: m_playlist.currentIndex
         model: m_listmodel
         delegate: imageOfFileMP3
