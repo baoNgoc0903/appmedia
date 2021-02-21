@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 Item {
+    id: rootItem
     NumberAnimation{
         id: textChangeAni
         property: "opacity"
@@ -58,67 +59,47 @@ Item {
         anchors.topMargin: 13
         color: "white"
     }
-    Component {
-        id: appDelegate
-
-        Item {
-            width: 400; height: 400
+    Component{
+        id: imageOfFileMP3
+        Item{
+            id: itemEle
+            width: 200*rootItem.width/633
+            height: 200*rootItem.width/633
             scale: PathView.iconScale
-            Image {
-                id: myIcon
+            Image{
                 width: parent.width
                 height: parent.height
-                y: 20
-                anchors.horizontalCenter: parent.horizontalCenter
                 source: imageofSong
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    m_playlist.setCurrentIndex(index)
+                y:75
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        m_playlist.setCurrentIndex(index)
+                    }
                 }
-
             }
         }
     }
-    Rectangle{
-        anchors.left: parent.left
-//        anchors.leftMargin: (parent.width - 1100)/2
-        anchors.top: parent.top
-//        anchors.topMargin: 300
+    PathView{
+        id:pathview
+        anchors.top: artist.bottom
         anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        color: "green"
-        z:1111
-        opacity: 0.3
-    }
-
-    PathView {
-        id: album_art_view
         anchors.left: parent.left
-        anchors.leftMargin: (parent.width - 1100)/2
-        anchors.top: parent.top
-        anchors.topMargin: 300
+        anchors.right: parent.right
+        focus: true
         preferredHighlightBegin: 0.5
         preferredHighlightEnd: 0.5
-        focus: true
-        model: m_listmodel
-        delegate: appDelegate
-        pathItemCount: 3
+        pathItemCount:3
         currentIndex: m_playlist.currentIndex
-        path: Path {
-            startX: 10
-            startY: 50
-            PathAttribute { name: "iconScale"; value: 0.5 }
-            PathLine { x: 550; y: 50 }
-            PathAttribute { name: "iconScale"; value: 1.0 }
-            PathLine { x: 1090; y: 50 }
-            PathAttribute { name: "iconScale"; value: 0.5 }
-        }
-        onCurrentItemChanged : {
-            m_playlist.setCurrentIndex(currentIndex)
-            m_player.play()
+        model: m_listmodel
+        delegate: imageOfFileMP3
+        path: Path{
+            startX: 15*rootItem.width/633;startY: 75*rootItem.height/379
+            PathAttribute{name:"iconScale"; value: 0.5}
+            PathLine{x: 315*rootItem.width/633; y:75*rootItem.height/379}
+            PathAttribute{name:"iconScale"; value: 1.0}
+            PathLine{x:615*rootItem.width/633; y:75*rootItem.height/379}
+            PathAttribute{name:"iconScale"; value: 0.5}
         }
     }
 
@@ -156,18 +137,18 @@ Item {
         background: Rectangle{
             x: slider.leftPadding
             y: slider.topPadding + slider.availableHeight/2 - height/2
-//            source: "qrc:/Image/progress_bar_bg.png"
+            //            source: "qrc:/Image/progress_bar_bg.png"
             width: slider.availableWidth
             height: 4
             color: "black"
-//            fillMode: Image.PreserveAspectFit
+            //            fillMode: Image.PreserveAspectFit
 
             Rectangle{
-//                source: "qrc:/Image/progress_bar.png"
+                //                source: "qrc:/Image/progress_bar.png"
                 width: slider.visualPosition*(slider.availableWidth-imgpoint.width/2) //slider.visualPosition*slider.availableWidth
                 height: 4
                 color: "white"
-//                fillMode: Image.PreserveAspectFit
+                //                fillMode: Image.PreserveAspectFit
             }
         }
         handle: Image{
