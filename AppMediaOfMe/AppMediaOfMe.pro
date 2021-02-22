@@ -35,7 +35,14 @@ HEADERS += \
     player.h \
     qlistsongmodel.h
 
-LIBS += -L/usr/local/include/taglib -ltag # LIBS += -L/home/zg0c/Downloads/taglib-1.12/taglib -ltag
+#LIBS += -L/usr/local/include/taglib -ltag # LIBS += -L/home/zg0c/Downloads/taglib-1.12/taglib -ltag
 # or any folder have file libtag.a (libtag.a => -ltag)
-INCLUDEPATH += /usr/local/include/taglib
+win32{
+    LIBS += -L$$PWD/TagLib -ltag
+}
+unix{
+    LIBS += -L$$PWD/TagLib -ltag
+}
+#INCLUDEPATH += /home/zg0c/appmedia/AppMediaOfMe/Taglib_FileHeader/taglib
+INCLUDEPATH += $$PWD/Taglib_FileHeader
 #DEPENDPATH += /usr/local/include/taglib

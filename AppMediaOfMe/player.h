@@ -1,6 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include</usr/local/include/taglib/id3v2tag.h> // don't need when add INCLUDE in .pro file
+#include</home/zg0c/appmedia/AppMediaOfMe/Taglib_FileHeader/id3v2tag.h> // don't need when add INCLUDE in .pro file
 #include<mpegfile.h>
 #include<id3v2frame.h>
 #include<id3v2header.h>
