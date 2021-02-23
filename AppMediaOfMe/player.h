@@ -24,6 +24,7 @@ public:
     void openBrower();
     void addToPlayList(QString path="", QString name="");
     QString getAlbumArt(TagLib::MPEG::File& mpegFile, QString name="");
+    void removeFile();
 public:
     QListSongModel* m_listmodelSong;
     QMediaPlayer* m_player;

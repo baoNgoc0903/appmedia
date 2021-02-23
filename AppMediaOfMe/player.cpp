@@ -23,6 +23,7 @@ Player::Player(QObject* parent): QObject(parent)
 
 Player::~Player()
 {
+    removeFile();
     qDebug() <<"Destroy player instance";
 }
 void Player::openBrower()
@@ -33,6 +34,15 @@ void Player::openBrower()
     while(it.hasNext()){
         it.next();
         addToPlayList(it.filePath(), it.fileName());
+    }
+}
+void Player::removeFile()
+{
+    QString root = "/home/zg0c/appmedia/AppMediaOfMe/ImageSinger";
+    QDirIterator it(root, QStringList()<<"*.jpg" << "*.png", QDir::Files, QDirIterator::Subdirectories);
+    while(it.hasNext()){
+        it.next();
+        QFile::remove(it.filePath());
     }
 }
 
@@ -54,7 +64,7 @@ QString Player::getAlbumArt(TagLib::MPEG::File &mpegFile, QString name)
     TagLib::ID3v2::AttachedPictureFrame *PicFrame ;
     void *SrcImage ;
     unsigned long Size ;
-    QString root = "/home/zg0c/appmedia/AppMediaOfMe/Image/";
+    QString root = "/home/zg0c/appmedia/AppMediaOfMe/ImageSinger/";
     if ( id3v2tag )
     {
         // picture frame
